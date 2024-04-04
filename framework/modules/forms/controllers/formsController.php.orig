@@ -1483,7 +1483,7 @@ class formsController extends expController {
      *
      * @param      $items
      *
-     * @param array|null $rptcols
+     * @param null $rptcols
      *
      * @return string
      */

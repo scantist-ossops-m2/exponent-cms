@@ -39,6 +39,7 @@ class usersController extends expController {
         'update'           => 'Update Users',
         'show'             => 'Show User',
         'showall'          => 'Show Users',
+        'getUsersByJSON'   => 'Get Users',
     );
 
     static function displayname() {
@@ -59,6 +60,25 @@ class usersController extends expController {
 
     static function canImportData() {
         return true;
+    }
+
+    public function show() {
+        global $user;
+
+        $id = !empty($this->params['id']) ? $this->params['id'] : null;
+
+        // check to see if we should be editing.  You either need to be an admin, or viewing own account.
+        if ($user->isAdmin() || ($user->id == $id)) {
+            $u = new user($id);
+            if ($u->isSuperAdmin() && $user->isActingAdmin()) {
+                flash('error', gt('You do not have the proper permissions to view this record'));
+                expHistory::back();
+            }
+            parent::show();
+        } else {
+            flash('error', gt('You do not have the proper permissions to view this record'));
+            expHistory::back();
+        }
     }
 
     public function manage() {
