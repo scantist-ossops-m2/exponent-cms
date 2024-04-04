@@ -53,11 +53,8 @@ class pixidouController extends expController {
     }
     
     public function exitEditor() {
-        // clean up parameters
-        $this->params['fid'] = intval($this->params['fid']);
-        if (!empty($this->params['cpi']) && strpos($this->params['cpi'], '..') !== false) {
-            $this->params['exitType'] = 'error';
-        }
+
+        //eDebug($this->params,true);
         switch ($this->params['exitType']) {
             case 'saveAsCopy':
                 $oldimage = new expFile($this->params['fid']);                
