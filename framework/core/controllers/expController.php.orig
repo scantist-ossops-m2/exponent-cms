@@ -419,7 +419,7 @@ class expController {
         $rank = 1;
         foreach($this->params['rerank'] as $key=>$id) {
             $modelname = $this->params['model'];
-            $obj = new $modelname(intval($id));
+            $obj = new $modelname($id);
             $obj->rank = $rank;
             $obj->save();
             $rank += 1;
